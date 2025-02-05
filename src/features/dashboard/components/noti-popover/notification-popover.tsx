@@ -29,7 +29,7 @@ export const NotificationPopover: React.FC<NotificationPopoverProps> = ({
 
     return (
         <Popover>
-            <PopoverTrigger>{children}</PopoverTrigger>
+            <PopoverTrigger asChild>{children}</PopoverTrigger>
             <PopoverContent className="flex w-80 flex-col gap-2 p-0">
                 {notifications.map((notification, index) => (
                     <NotificationItem
