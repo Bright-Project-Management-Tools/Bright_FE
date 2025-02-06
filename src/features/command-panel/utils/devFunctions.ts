@@ -11,12 +11,22 @@ export const toggleTheme = () => {
   console.log('Theme toggled to', newTheme)
 }
 
+// Now actually toggle selection mode by updating localStorage and emitting an event.
 export const toggleSelectionMode = () => {
-  console.log('Selection mode toggled')
+  const current = localStorage.getItem('selectionMode') === 'true'
+  const newMode = !current
+  localStorage.setItem('selectionMode', newMode.toString())
+  window.dispatchEvent(new CustomEvent('selectionModeChanged', { detail: newMode }))
+  console.log('Selection mode toggled to', newMode)
 }
 
+// Toggle language: update localStorage and dispatch an event.
 export const toggleLanguage = () => {
-  console.log('Language toggled')
+  const current = localStorage.getItem('devLanguage') || 'EN'
+  const newLang = current === 'EN' ? 'VI' : 'EN'
+  localStorage.setItem('devLanguage', newLang)
+  window.dispatchEvent(new CustomEvent('languageChanged', { detail: newLang }))
+  console.log('Language toggled to', newLang)
 }
 
 export const changeDataView = () => {
