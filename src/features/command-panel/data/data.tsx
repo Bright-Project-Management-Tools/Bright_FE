@@ -1,88 +1,133 @@
 import React from 'react'
 import {
-  MousePointer,
-  Globe,
-  Layout,
-  Activity,
-  ZoomIn,
-  Sun,
-  Database,
+    HelpCircle,
+    ArrowRightCircle,
+    LogOut,
+    MoreHorizontal,
+    MousePointer,
+    Globe,
+    Layout,
+    RotateCw,
+    Sun,
+    Database
 } from 'lucide-react'
+import {
+    toggleSelectionMode,
+    toggleLanguage,
+    toggleTheme,
+    changeDataView,
+    refreshData,
+} from '../utils/devFunctions'
 
-// Dummy action functions (also reusing dev-dock functions)
-const toggleSelectionMode = () => console.log('Toggled selection mode')
-const setLanguage = (lang: string) => console.log(`Language set to ${lang}`)
-const toggleTheme = () => console.log('Theme toggled')
-const changeDataView = () => console.log('Data view changed')
-const showDimensions = () => console.log('Displaying dimensions')
-const reloadPerformance = () => window.location.reload()
-const showZoomLevel = () => console.log('Showing zoom level')
-
+// Order groups so that commonly used commands appear first.
 export const commandData = {
-  Developer: [
-    {
-      title: "Toggle Selection Mode",
-      icon: <MousePointer className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "S",
-      action: toggleSelectionMode,
-    },
-    {
-      title: "Select Language",
-      icon: <Globe className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "L",
-      children: [
+    Common: [
         {
-          title: "English",
-          action: () => setLanguage("English"),
+            title: "/help",
+            icon: <HelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "H",
+            action: () => console.log('Help opened'),
         },
         {
-          title: "Spanish",
-          action: () => setLanguage("Spanish"),
+            title: "/navigate",
+            icon: <ArrowRightCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "N",
+            children: [
+                {
+                    title: "Dashboard",
+                    action: () => console.log("Navigating to /dashboard"),
+                },
+                {
+                    title: "Profile",
+                    action: () => console.log("Navigating to /profile"),
+                },
+                {
+                    title: "Settings",
+                    action: () => console.log("Navigating to /settings"),
+                },
+                {
+                    title: "Back",
+                    action: () => { }, // Handled in the panel via title check
+                },
+            ],
         },
         {
-          title: "French",
-          action: () => setLanguage("French"),
+            title: "/logout",
+            icon: <LogOut className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "O",
+            action: () => console.log("Logging out"),
         },
         {
-          title: "Back",
-          action: () => {}, // Handled in the panel via title check
+            title: "/etc",
+            icon: <MoreHorizontal className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "E",
+            action: () => console.log("Additional utilities"),
         },
-      ],
-    },
-    {
-      title: "Show Dimensions",
-      icon: <Layout className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "D",
-      action: showDimensions,
-    },
-  ],
-  System: [
-    {
-      title: "Reload Performance",
-      icon: <Activity className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "R",
-      action: reloadPerformance,
-    },
-    {
-      title: "Zoom Level",
-      icon: <ZoomIn className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "Z",
-      action: showZoomLevel,
-    },
-  ],
-  Appearance: [
-    {
-      title: "Toggle Theme",
-      icon: <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "T",
-      action: toggleTheme,
-    },
-    {
-      title: "Change Data View",
-      icon: <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      shortcut: "V",
-      action: changeDataView,
-    },
-  ],
+    ],
+    Developer: [
+        {
+            title: "Toggle Selection Mode",
+            icon: <MousePointer className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "S",
+            action: toggleSelectionMode,
+        },
+        {
+            title: "Select Language",
+            icon: <Globe className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "L",
+            children: [
+                {
+                    title: "English",
+                    action: () => {
+                        console.log("Language set to English")
+                        toggleLanguage()
+                    },
+                },
+                {
+                    title: "Spanish",
+                    action: () => {
+                        console.log("Language set to Spanish")
+                        toggleLanguage()
+                    },
+                },
+                {
+                    title: "French",
+                    action: () => {
+                        console.log("Language set to French")
+                        toggleLanguage()
+                    },
+                },
+                {
+                    title: "Back",
+                    action: () => { },
+                },
+            ],
+        },
+        {
+            title: "Show Dimensions",
+            icon: <Layout className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "D",
+            action: () => console.log('Displaying dimensions'),
+        },
+        {
+            title: "Refresh Data",
+            icon: <RotateCw className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "R",
+            action: refreshData,
+        },
+    ],
+    Appearance: [
+        {
+            title: "Toggle Theme",
+            icon: <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "T",
+            action: toggleTheme,
+        },
+        {
+            title: "Change Data View",
+            icon: <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+            shortcut: "V",
+            action: changeDataView,
+        },
+    ],
 }
-// ...existing code if any...
