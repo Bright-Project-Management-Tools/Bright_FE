@@ -1,6 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+} from '@/components/ui/form';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
@@ -9,10 +22,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-
-
-import withScrollbarTheme from '../hoc/scroll-bar';
-import { NOTIFICATION } from '../test/data/strings';
+import withScrollbarTheme from '../../hoc/scroll-bar';
+import { NOTIFICATION } from '@features/setting/data/strings';
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -22,7 +33,7 @@ const formSchema = z.object({
     notify_me: z.boolean().optional(),
 });
 
-function Notification() {
+function NotificationSettingPage() {
     const [communicationEmail, setCommunicationEmail] = useState(true);
     const [securityEmail, setSecurityEmail] = useState(true);
     const [socialEmail, setSocialEmail] = useState(true);
@@ -83,8 +94,8 @@ function Notification() {
     };
 
     return (
-        <div className="container-ns flex w-[74.4vw] flex-col overflow-auto pb-10">
-            <div className="flex flex-col gap-4 group sticky z-30 mx-3 bg-background pb-[14px] pt-8 text-2xl font-light">
+        <div className="container flex flex-col pb-10 w-full">
+            <div className="group bg-background sticky z-30 mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                 {'Notification'}
                 <Separator />
             </div>
@@ -131,7 +142,7 @@ function Notification() {
                             />
                         </div>
                         <div className="m-3 h-fit w-[98%] rounded-md border-[1px]">
-                            <div className="rounded-t-md border-b-[1px] bg-foreground bg-opacity-50 p-3 font-semibold text-background">
+                            <div className="bg-foreground bg-opacity-50 text-background rounded-t-md border-b-[1px] p-3 font-semibold">
                                 {'Subscription'}
                             </div>
                             <FormField
@@ -241,7 +252,7 @@ function Notification() {
                                 )}
                             />
                         </div>
-                        <div className="mx-3 mb-2 mt-5">
+                        <div className="mx-3 mt-5 mb-2">
                             <Button type="submit">{'Save changes'}</Button>
                         </div>
                     </form>
@@ -251,4 +262,4 @@ function Notification() {
     );
 }
 
-export default withScrollbarTheme(Notification);
+export default withScrollbarTheme(NotificationSettingPage);

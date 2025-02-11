@@ -30,10 +30,13 @@ import {
     ChevronUp,
     Layers2,
     Plus,
+    Settings,
     UserCircle,
+    UserRoundX,
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import { items, itemsAbout, itemsHelp, listOfProjects } from '../data/data';
 
 // Define the type for menu items
@@ -214,8 +217,8 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
     }, [open]);
 
     // Define widths.
-    const collapsedWidth = "3rem";
-    const extendedWidth = "14rem";
+    const collapsedWidth = '3rem';
+    const extendedWidth = '14rem';
     const overlayWidth = `calc(${extendedWidth} - ${collapsedWidth})`;
 
     // Mouse event handlers.
@@ -233,7 +236,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         <div>
             {/* Reserved (base) sidebar: occupies space in the layout */}
             <div
-                className="relative z-40 transition-all ease-in-out duration-300"
+                className="relative z-40 transition-all duration-300 ease-in-out"
                 style={{ width: collapsedWidth }}
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
@@ -269,8 +272,14 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                             actionTitle="Add Project"
                             open={open}
                         />
-                        <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
-                        <CollapsibleSidebarGroup label="About" items={itemsAbout} />
+                        <CollapsibleSidebarGroup
+                            label="Help"
+                            items={itemsHelp}
+                        />
+                        <CollapsibleSidebarGroup
+                            label="About"
+                            items={itemsAbout}
+                        />
                     </SidebarContent>
 
                     <SidebarFooter>
@@ -289,17 +298,17 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                         close={!open}
                                     >
                                         <DropdownMenuItem>
-                                            <span>Profile</span>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <NavLink to={`/settings`}>
-                                                <span className="text-base">
-                                                    {'Settings'}
-                                                </span>
+                                            <NavLink to={`/profile`} className="flex items-center gap-2">
+                                                <UserCircle size={16} /> {'Profile'}
                                             </NavLink>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
-                                            <span>Sign out</span>
+                                            <NavLink to={`/settings`} className="flex items-center gap-2">
+                                                <Settings size={16} /> {'Settings'}
+                                            </NavLink>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span className='flex items-center gap-2'> <UserRoundX size={16} /> Sign out</span>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

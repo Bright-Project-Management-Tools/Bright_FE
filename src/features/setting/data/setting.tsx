@@ -1,4 +1,5 @@
 import { Bell, SunMoon, User, UserCog } from 'lucide-react';
+import React from 'react';
 
 const iconStyle = 'w-4 h-4 group-hover:text-black';
 

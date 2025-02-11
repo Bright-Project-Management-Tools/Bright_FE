@@ -1,8 +1,8 @@
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 
-import SETTING_TABS from '../test/data/setting';
-import SettingTab from './setting-tab';
+import SETTING_TABS from '@features/setting/data/setting';
+import SettingTab from '@features/setting/component/setting-tab';
 
 function SettingSideBar() {
     const [selectedActive, setSelectedActive] = useState(0);
@@ -11,8 +11,8 @@ function SettingSideBar() {
     };
 
     return (
-        <div className="no-scrollbar mr-[3vw] flex h-dvh w-[16vw] flex-col overflow-auto bg-background">
-            <div className="flex flex-col gap-4 group top-0 ml-3 w-full border-slate-300/30 px-2 pb-[14px] pt-8 text-2xl">
+        <div className="bg-background mr-[3vw] flex h-dvh w-60 flex-col">
+            <div className="group top-0 ml-3 flex w-full flex-col gap-4 border-slate-300/30 px-2 pt-8 pb-[14px] text-2xl">
                 {'Settings'}
                 <Separator />
             </div>
