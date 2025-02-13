@@ -26,98 +26,18 @@ import {
 } from '@components/ui/sidebar';
 import {
     ArrowRight,
-    Bell,
-    Cable,
     ChevronDown,
     ChevronUp,
-    Circle,
-    CircleUser,
-    Gem,
-    HelpCircle,
-    Home,
-    Inbox,
     Layers2,
-    Newspaper,
-    PanelsTopLeft,
     Plus,
-    Quote,
+    Settings,
     UserCircle,
+    UserRoundX,
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-// Menu items.
-const items = [
-    {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: Home,
-    },
-    {
-        title: 'Inbox',
-        url: '/inbox',
-        icon: Inbox,
-    },
-    {
-        title: 'Projects',
-        url: '/project',
-        icon: PanelsTopLeft,
-    },
-    {
-        title: 'Notifications',
-        url: '/notification',
-        icon: Bell,
-    },
-];
-
-const itemsHelp = [
-    {
-        title: 'Help',
-        url: '#',
-        icon: HelpCircle,
-    },
-    {
-        title: 'Support',
-        url: '#',
-        icon: Cable,
-    },
-];
-
-const itemsAbout = [
-    {
-        title: 'About Us',
-        url: '#',
-        icon: Quote,
-    },
-    {
-        title: 'Subscription',
-        url: '#',
-        icon: Gem,
-    },
-    {
-        title: "What's New",
-        url: '#',
-        icon: Newspaper,
-    },
-];
-
-const listOfProjects = [
-    {
-        title: 'Bright',
-        url: '#',
-        icon: Plus,
-    },
-    {
-        title: 'Eternal',
-        url: '#',
-        icon: Plus,
-    },
-    {
-        title: 'Hive',
-        url: '#',
-        icon: Plus,
-    },
-];
+import { items, itemsAbout, itemsHelp, listOfProjects } from '../data/data';
 
 // Define the type for menu items
 interface MenuItem {
@@ -296,85 +216,119 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         isPersistSidebarOn();
     }, [open]);
 
-    return (
-        <Sidebar
-            collapsible="icon"
-            onMouseEnter={() => {
-                if (isPersistSidebarOn()) return;
-                setOpen(true);
-            }}
-            onMouseLeave={() => {
-                if (isPersistSidebarOn()) return;
-                setShouldCheckMousePosition(true);
-            }}
-        >
-            <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton className="py-6 text-base">
-                                    <Layers2 />
-                                    Workspace
-                                    <ChevronDown className="ml-auto" />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
-                                <DropdownMenuItem>
-                                    <span>Zen Bright</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Tutur3u</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarHeader>
-            <SidebarContent>
-                <CollapsibleSidebarGroup
-                    label="Project Management"
-                    items={items}
-                    actionTitle="Add Project"
-                    open={open}
-                />
-                <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
-                <CollapsibleSidebarGroup label="About" items={itemsAbout} />
-            </SidebarContent>
+    // Define widths.
+    const collapsedWidth = '3rem';
+    const extendedWidth = '14rem';
+    const overlayWidth = `calc(${extendedWidth} - ${collapsedWidth})`;
 
-            <SidebarFooter>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton>
-                                    <UserCircle /> Mudoker
-                                    <ChevronUp className="ml-auto" />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent
-                                side="top"
-                                className="w-[--radix-popper-anchor-width]"
-                                close={!open}
-                            >
-                                <DropdownMenuItem>
-                                    <span>Profile</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <NavLink to={`/settings`}>
-                                        <span className="text-base">
-                                            {'Settings'}
-                                        </span>
-                                    </NavLink>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarFooter>
-        </Sidebar>
+    // Mouse event handlers.
+    const handleEnter = () => {
+        if (isPersistSidebarOn()) return;
+        setOpen(true);
+    };
+    const handleLeave = () => {
+        if (isPersistSidebarOn()) return;
+        // ...existing logic...
+        setShouldCheckMousePosition(true);
+    };
+
+    return (
+        <div>
+            {/* Reserved (base) sidebar: occupies space in the layout */}
+            <div
+                className="relative z-40 transition-all duration-300 ease-in-out"
+                style={{ width: collapsedWidth }}
+                onMouseEnter={handleEnter}
+                onMouseLeave={handleLeave}
+            >
+                <Sidebar collapsible="icon">
+                    <SidebarHeader>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton className="py-6 text-base">
+                                            <Layers2 />
+                                            Workspace
+                                            <ChevronDown className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
+                                        <DropdownMenuItem>
+                                            <span>Zen Bright</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span>Tutur3u</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarHeader>
+                    <SidebarContent>
+                        <CollapsibleSidebarGroup
+                            label="Project Management"
+                            items={items}
+                            actionTitle="Add Project"
+                            open={open}
+                        />
+                        <CollapsibleSidebarGroup
+                            label="Help"
+                            items={itemsHelp}
+                        />
+                        <CollapsibleSidebarGroup
+                            label="About"
+                            items={itemsAbout}
+                        />
+                    </SidebarContent>
+
+                    <SidebarFooter>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton>
+                                            <UserCircle /> Mudoker
+                                            <ChevronUp className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent
+                                        side="top"
+                                        className="w-[--radix-popper-anchor-width]"
+                                        close={!open}
+                                    >
+                                        <DropdownMenuItem>
+                                            <NavLink
+                                                to={`/profile`}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <UserCircle size={16} />{' '}
+                                                {'Profile'}
+                                            </NavLink>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <NavLink
+                                                to={`/settings`}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <Settings size={16} />{' '}
+                                                {'Settings'}
+                                            </NavLink>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span className="flex items-center gap-2">
+                                                {' '}
+                                                <UserRoundX size={16} /> Sign
+                                                out
+                                            </span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarFooter>
+                </Sidebar>
+            </div>
+        </div>
     );
 }
